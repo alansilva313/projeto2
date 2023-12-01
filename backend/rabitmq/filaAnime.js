@@ -37,7 +37,7 @@ async function publishAnimeMessage(animeDataC, callback) {
 
     // Verifica se 'serverWebSocket' e 'serverWebSocket.io' estão definidos antes de chamar 'emit'
     if (serverWebSocket && serverWebSocket.io) {
-      serverWebSocket.io.emit('novoAnime', animeDataC);
+      serverWebSocket.io.emit('novoAnime', 'Anime criado com sucesso!');
     } else {
       console.error('O objeto serverWebSocket ou serverWebSocket.io não está definido.');
     }
@@ -48,6 +48,11 @@ async function publishAnimeMessage(animeDataC, callback) {
   } catch (error) {
     console.error('Erro ao publicar mensagem sobre a criação de um anime no RabbitMQ:', error);
   }
+  
 }
+
+
+
+
 
 module.exports = { setupRabbitMQ, publishAnimeMessage };

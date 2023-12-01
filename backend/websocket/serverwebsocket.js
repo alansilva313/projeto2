@@ -1,7 +1,7 @@
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
-const consumeAnimeMessage = require('../rabitmq/rabbitMQConsumer');
+const consumeAnimeMessage = require('../rabitmq/animeConsumer');
 
 class ServerWebSocket {
   constructor() {

@@ -1,4 +1,4 @@
-// rabbitMQConsumer.js
+// rabbitMQConsumerAnime.js
 const amqp = require('amqplib');
 const prisma = require('../src/Client/PrismaClient');
 const { rabbitMQURL, animeQueue } = require('./rabbitmq.config');
@@ -9,30 +9,28 @@ async function consumeAnimeMessage(io) {
     const channel = await connection.createChannel();
 
     await channel.assertQueue(animeQueue, { durable: true });
-    console.log('Consumidor aguardando mensagens. Para sair pressione CTRL+C');
+    console.log('Consumidor de anime aguardando mensagens. Para sair pressione CTRL+C');
 
     channel.consume(animeQueue, async (msg) => {
       if (msg !== null) {
         const animeDataC = JSON.parse(msg.content.toString());
-        console.log('Mensagem recebida:', animeDataC);
+        console.log('Mensagem de anime recebida:', animeDataC);
 
-        // Insira no banco de dados
-        const dadosBanco = await prisma.anime.createMany({
-          data: animeDataC
+        // Insira os dados do anime no banco de dados
+        const dadosAnime = await prisma.anime.create({
+          data: animeDataC,
         });
 
-        console.log(dadosBanco);
-
-        // Emita um evento para todos os usuários conectados, exceto o que criou a mensagem
+        // Emita um evento para todos os usuários conectados
         if (io) {
-          io.emit('novoAnime', { message: 'Novo anime criado!', animeData: dadosBanco });
+          io.emit('novoAnime', { message: 'Nova mensagem de anime criada!', animeData: dadosAnime });
         }
 
         channel.ack(msg);
       }
     });
   } catch (error) {
-    console.error('Erro no consumidor:', error);
+    console.error('Erro no consumidor de anime:', error);
   }
 }
 

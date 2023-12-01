@@ -1,4 +1,4 @@
-const { publishLogMessage } = require('../rabitmq/rabitserver'); // Importe a função de envio para a fila
+const { publishLogMessage } = require('../rabitmq/filaLog'); // Importe a função de envio para a fila
 
 // Seu controlador de log
 module.exports = class LogController {
@@ -7,13 +7,13 @@ module.exports = class LogController {
 
     try {
       // Crie um objeto com os dados do log
-      const animeData = {
+      const log = {
         busca: busca,
         user_busca: user_busca,
       };
 
       // Envia o log para a fila RabbitMQ
-      publishLogMessage(animeData);
+      publishLogMessage(log);
 
       return res.status(200).json({ message: 'Log de pesquisa registrado com sucesso!', success: true });
     } catch (error) {

@@ -1,6 +1,6 @@
 // CreateAnimeController.js
-const { publishAnimeMessage } = require('../rabitmq/rabitserver');
-const { handleServerError } = require('util'); // Substitua com sua lógica de tratamento de erro
+const { publishAnimeMessage } = require('../rabitmq/filaAnime');
+// Substitua com sua lógica de tratamento de erro
 
 module.exports = class CreateAnimeController {
   static async createAnime(req, res) {
@@ -32,7 +32,7 @@ module.exports = class CreateAnimeController {
 
       return res.status(201).json({ message: "Anime criado com sucesso! Aguarde a confirmação.", success: true });
     } catch (error) {
-      handleServerError(error, res);
+      console.log(error)
     }
   }
 };

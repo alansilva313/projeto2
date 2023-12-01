@@ -2,8 +2,8 @@ const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors"); // Adicionado o import do cors
-const setupRabbitMQ = require('../rabitmq/rabitserver')
-const consumeAnimeMessage = require('../rabitmq/rabbitMQConsumer')
+const setupRabbitMQ = require('../rabitmq/filaAnime')
+const consumeAnimeMessage = require('../rabitmq/animeConsumer')
 const consumeLogMessage = require('../rabitmq/LogConsumer')
 
 consumeAnimeMessage()

@@ -3,4 +3,5 @@
 module.exports = {
   rabbitMQURL: 'amqp://localhost',
   animeQueue: 'animeQueue',
+  logQueue: 'logQueue'
 };
